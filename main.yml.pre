@@ -1,0 +1,50 @@
+---
+
+- name: Enable repo 
+  hosts: all
+  become: yes
+  gather_facts: false
+  tasks:
+    - include_role:
+        name: enable_repo
+
+- name: deploy haproxy
+  hosts: frontends
+  become: true
+  gather_facts: false
+  tasks:
+    - include_role:
+        name: install_haproxy
+
+- name: deploy tomcat
+  hosts: apps
+  become: true
+  gather_facts: false
+  tasks:
+    - include_role:
+        name: install_tomcat
+
+- name: index.html on app 1 and app 2
+  hosts: apps
+  become: true
+  gather_facts: false
+  tasks:
+    - include_role:
+        name: deploy_app_content
+
+- name: deploy postgres
+  hosts: apps
+  become: true
+  gather_facts: false
+  tasks:
+    - include_role:
+        name: install_postgres
+
+- name: deploy apache
+  hosts: apps
+  become: true
+  gather_facts: false
+  tasks:
+    - include_role:
+        name: install_apache
+

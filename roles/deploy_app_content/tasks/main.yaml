@@ -1,0 +1,12 @@
+- name: copy static index.html to tomcat webapps/ansible/index.html
+  template:
+    src: templates/index.html.app1
+    dest: /usr/share/tomcat/webapps/ansible/index.html
+  when: "'app1' in inventory_hostname"
+
+- name: copy static index.html to tomcat webapps/ansible/index.html
+  template:
+    src: templates/index.html.app2
+    dest: /usr/share/tomcat/webapps/ansible/index.html
+  when: "'app2' in inventory_hostname"
+

@@ -1,0 +1,37 @@
+---
+- name: Deploy a three tier configuration
+  hosts: all
+  become: yes
+  gather_facts: false
+
+  tasks:
+
+  - name: Enable repo 
+    include_role:
+      name: enable_repo
+
+  - name: deploy haproxy
+    include_role:
+      name: install_haproxy
+    when: "'frontends' in group_names"
+
+  - name: deploy tomcat
+    include_role:
+      name: install_tomcat
+    when: "'apps' in group_names"
+
+  - name: index.html on app 1 and app 2
+    include_role:
+      name: deploy_app_content
+    when: "'apps' in group_names"
+
+  - name: deploy postgres
+    include_role:
+      name: install_postgres
+    when: "'appdbs' in group_names"
+
+  - name: deploy apache
+    include_role:
+      name: install_apache
+    when: "'apps' in group_names"
+
