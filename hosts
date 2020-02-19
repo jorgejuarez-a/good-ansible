@@ -15,3 +15,14 @@ appdbs
 
 [internal:vars]
 GUID="{{ lookup('env', 'GUID') }}"
+
+[windows]
+## These are the activedirectory servers
+ad1.9f69.internal ssh_host=ad1.9f69.example.opentlc.com ansible_password=jVMijRwLbI02gFCo2xkjlZ9lxEA7bm7zgg==
+
+[windows:vars]
+ansible_connection=winrm
+ansible_user=Administrator
+ansible_winrm_server_cert_validation=ignore
+ansible_become=false
+
